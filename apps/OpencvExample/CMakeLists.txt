@@ -68,7 +68,7 @@ message("=========================")
 message("${CMAKE_SOURCE_DIR}/extern/opencv/include/opencv")
 message("============================")
 
-# target_link_libraries(${OUTEXE_NAME} PRIVATE OpenGL::GL OpenGL::GLU imgui::imgui spdlog::spdlog glm::glm glad.lib glfw3.lib)
+# target_link_libraries(${OUTEXE_NAME} PRIVATE OpenGL::GL OpenGL::GLU imgui::imgui spdlog::spdlog glm::glm Vulkan::Vulkan glad.lib glfw3.lib)
 target_link_libraries(${OUTEXE_NAME} PRIVATE imgui::imgui spdlog::spdlog glm::glm ${OpenCV_LIBS})
 # if (MSVC)
 #     set(libs 

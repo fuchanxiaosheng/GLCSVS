@@ -22,7 +22,7 @@ private:
 		wc.lpfnWndProc = HandleMsgSetup;
 		wc.cbClsExtra = 0;
 		wc.cbWndExtra = 0;
-		wc.hInstance = GetInstance();;
+		wc.hInstance = GetInstance();
 		wc.hIcon = nullptr;
 		wc.hCursor = nullptr;
 		wc.hbrBackground = nullptr;
@@ -37,6 +37,7 @@ private:
 	{
 		UnregisterClass(wndTemplateName, GetInstance());
 	}
+
 	WindowTemplate(const WindowTemplate&) = delete;
 	WindowTemplate& operator=(const WindowTemplate&) = delete;
 	static constexpr const char* wndTemplateName = "RTRender Window";
@@ -44,6 +45,7 @@ private:
 	HINSTANCE hInst;
 
 };
+
 RTWindow::WindowTemplate RTWindow::WindowTemplate::wndTemplate;
 
 RTWindow::RTWindow(int width, int height, const char* name) noexcept
@@ -80,4 +82,24 @@ LRESULT WINAPI RTWindow::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 		SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&RTWindow::HandleMsgThunk));
 		return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
 	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+LRESULT WINAPI RTWindow::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
+{
+	RTWindow* const pWnd = reinterpret_cast<RTWindow*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+	return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
+}
+
+LRESULT RTWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
+{
+	switch (msg)
+	{
+	case WM_CLOSE:
+		PostQuitMessage(0);
+		return 0;
+	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
 }

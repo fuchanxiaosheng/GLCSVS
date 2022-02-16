@@ -52,6 +52,21 @@ int main()
 	const auto pClassName = "RTRender";
 	HINSTANCE hInstance = GetModuleHandle(nullptr);
 
+	WNDCLASSEX wc = { 0 };
+	wc.cbSize = sizeof(wc);
+	wc.style = CS_OWNDC;
+	wc.lpfnWndProc = WndProc;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hInstance;
+	wc.hIcon = nullptr;
+	wc.hCursor = nullptr;
+	wc.hbrBackground = nullptr;
+	wc.lpszMenuName = nullptr;
+	wc.lpszClassName = pClassName;
+	wc.hIconSm = nullptr;
+
+	RegisterClassEx(&wc);
 	
 	spdlog::info("register window class");
 

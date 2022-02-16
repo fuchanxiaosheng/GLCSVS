@@ -54,7 +54,7 @@ link_directories(${Vulkan_LIBRARY})
 
 add_executable(triangle_drawer ${entry_file} ${source_files} ${header_files})
 
-target_link_libraries(triangle_drawer PRIVATE OpenGL::GL OpenGL::GLU imgui::imgui spdlog::spdlog gtest gtest_main gmock gmock_main glm::glm glad.lib glfw3.lib)
+target_link_libraries(triangle_drawer PRIVATE OpenGL::GL OpenGL::GLU imgui::imgui spdlog::spdlog gtest gtest_main gmock gmock_main glm::glm Vulkan::Vulkan glad.lib glfw3.lib)
 
 
 # if (MSVC)

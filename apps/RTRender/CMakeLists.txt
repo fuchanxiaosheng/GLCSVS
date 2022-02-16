@@ -79,7 +79,7 @@ set_target_properties(${OUTEXT_NAME} PROPERTIES FOLDER "ImguiExample")
 
 target_include_directories(${OUTEXE_NAME} PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include")
 
-target_link_libraries(${OUTEXE_NAME} PRIVATE OpenGL::GL OpenGL::GLU imgui::imgui spdlog::spdlog glm::glm glad.lib glfw3.lib)
+target_link_libraries(${OUTEXE_NAME} PRIVATE OpenGL::GL OpenGL::GLU imgui::imgui spdlog::spdlog glm::glm Vulkan::Vulkan glad.lib glfw3.lib)
 
 
 # if (MSVC)

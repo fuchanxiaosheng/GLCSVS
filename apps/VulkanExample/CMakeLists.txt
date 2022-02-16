@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(PROJECT_NAME "OpenglExample")
-set(OUTEXE_NAME "OpenglExample")
+set(PROJECT_NAME "VulkanExample")
+set(OUTEXE_NAME "VulkanExample")
 
 project(${PROJECT_NAME})
 
-set(CMAKE_EXE_LINKER_FLAGS "-static")
+set(CMAKE_CXX_STANDARD 17)
 
 if(CMAKE_HOST_WIN32)
     if (CMAKE_CL_64)
@@ -17,23 +17,17 @@ else()
     message("unsupported architecture")
 endif()
 
-
-
 #message(" >> ${lib_dir}")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/apps/${PROJECT_NAME})
 include_directories(${lib_dir}/glad/include)
 include_directories(${lib_dir}/glfw/include)
-include_directories(${lib_dir}/freeglut/include)
-include_directories(${lib_dir}/glew/include)
 # include_directories(${lib_dir}/spdlog/include)
 
 
 link_directories(${lib_dir}/glad/lib)
 link_directories(${lib_dir}/glfw/lib)
-link_directories(${lib_dir}/freeglut/lib)
-link_directories(${lib_dir}/glew/lib)
 # link_directories(${lib_dir}/spdlog/lib)
 
 file(GLOB_RECURSE header_files 
@@ -77,20 +71,17 @@ endforeach()
 find_package(OpenGL)
 find_package(Vulkan)
 
-include_directories(${Vulkan_INCLUDE_DIR})
+#include_directories(${Vulkan_INCLUDE_DIR})
 include_directories(${header_files})
 
-link_directories(${Vulkan_LIBRARY})
-
-
+#link_directories(${Vulkan_LIBRARY})
 
 add_executable(${OUTEXE_NAME} ${entry_file} ${source_files} ${header_files})
 set_target_properties(${OUTEXT_NAME} PROPERTIES FOLDER "ImguiExample")
 
 target_include_directories(${OUTEXE_NAME} PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include")
 
-target_link_libraries(${OUTEXE_NAME} PRIVATE OpenGL::GL OpenGL::GLU imgui::imgui spdlog::spdlog glm::glm Vulkan::Vulkan 
-            glew32sd.lib freeglut_staticd.lib glad.lib glfw3.lib)
+target_link_libraries(${OUTEXE_NAME} PRIVATE OpenGL::GL OpenGL::GLU imgui::imgui spdlog::spdlog glm::glm Vulkan::Vulkan glad.lib glfw3.lib)
 
 
 # if (MSVC)
