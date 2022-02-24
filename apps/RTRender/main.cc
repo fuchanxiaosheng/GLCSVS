@@ -5,6 +5,19 @@
 
 #include "Window/RTMessageMap.h"
 
+//void DrawBitmap(HWND hwnd, int x, int y, int nBmpWidth, int nBmpHeight, const unsigned char* pBmpData)
+//{
+//	HBITMAP hBitmap = ::CreateBitmap(nBmpWidth, nBmpHeight, 1, 32, pBmpData);
+//	HDC hWndDc = ::GetDC(hwnd);
+//	HDC hMemDc = ::CreateCompatibleDC(hWndDc);
+//	HBITMAP hOldBitmap = (HBITMAP)::SelectObject(hMemDc, hBitmap);
+//	::BitBlt(hWndDc, x, y, nBmpWidth, nBmpHeight, hMemDc, 0, 0, SRCCOPY);
+//	::SelectObject(hMemDc, hOldBitmap);
+//	::DeleteObject(hBitmap);
+//	::DeleteDC(hMemDc);
+//	::ReleaseDC(hwnd, hWndDc);
+//}
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	static WindowsMessageMap mm;
