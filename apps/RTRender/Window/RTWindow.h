@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 
+#include "RTKeyboard.h"
+
 class RTWindow
 {
 
@@ -14,6 +16,10 @@ private:
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+
+
+public:
+	RTKeyboard kbd;
 
 private:
 	class WindowTemplate;
