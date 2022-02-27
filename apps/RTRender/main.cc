@@ -16,9 +16,17 @@ int main()
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-		if (window.kbd.KeyIsPressed(VK_SPACE))
+		/*if (window.kbd.KeyIsPressed(VK_SPACE))
 		{
 			spdlog::info("space key is pressed");
+		}*/
+		while (!window.mouse.IsEmpty())
+		{
+			const auto e = window.mouse.Read();
+			if (e.GetType() == RTMouse::Event::Type::Move)
+			{
+				spdlog::info("mouse position: ({}, {})", e.GetPosX(), e.GetPosY());
+			}
 		}
 	}
 

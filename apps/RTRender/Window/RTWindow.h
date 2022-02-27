@@ -2,6 +2,7 @@
 #include <Windows.h>
 
 #include "RTKeyboard.h"
+#include "RTMouse.h"
 
 class RTWindow
 {
@@ -20,6 +21,7 @@ private:
 
 public:
 	RTKeyboard kbd;
+	RTMouse mouse;
 
 private:
 	class WindowTemplate;
