@@ -1,5 +1,7 @@
 #include "RTMouse.h"
 
+#include <Windows.h>
+
 std::pair<int, int> RTMouse::GetPos() const noexcept
 {
 	return { x, y };
@@ -13,6 +15,11 @@ int RTMouse::GetPosX() const noexcept
 int RTMouse::GetPosY() const noexcept
 {
 	return y;
+}
+
+bool RTMouse::IsInWindow() const noexcept
+{
+	return isInWindow;
 }
 
 bool RTMouse::LeftIsPressed() const noexcept
@@ -49,6 +56,20 @@ void RTMouse::OnMouseMove(int newx, int newy) noexcept
 	x = newx;
 	y = newy;
 	buffer.push(RTMouse::Event(RTMouse::Event::Type::Move, *this));
+	TrimBuffer();
+}
+
+void RTMouse::OnMouseLeave() noexcept
+{
+	isInWindow = false;
+	buffer.push(RTMouse::Event(RTMouse::Event::Type::Leave, *this));
+	TrimBuffer();
+}
+
+void RTMouse::OnMouseEnter() noexcept
+{
+	isInWindow = true;
+	buffer.push(RTMouse::Event(RTMouse::Event::Type::Enter, *this));
 	TrimBuffer();
 }
 
@@ -97,5 +118,20 @@ void RTMouse::TrimBuffer() noexcept
 	while (buffer.size() > bufferSize)
 	{
 		buffer.pop();
+	}
+}
+
+void RTMouse::OnWheelDelta(int x, int y, int delta) noexcept
+{
+	wheelDeltaCarry += delta;
+	while (wheelDeltaCarry >= WHEEL_DELTA)
+	{
+		wheelDeltaCarry -= WHEEL_DELTA;
+		OnWheelUp(x, y);
+	}
+	while (wheelDeltaCarry <= -WHEEL_DELTA)
+	{
+		wheelDeltaCarry += WHEEL_DELTA;
+		OnWheelDown(x, y);
 	}
 }

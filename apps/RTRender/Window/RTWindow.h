@@ -12,6 +12,7 @@ public:
 	~RTWindow();
 	RTWindow(const RTWindow&) = delete;
 	RTWindow& operator=(const RTWindow&) = delete;
+	void SetTitle(const std::string& title);
 
 private:
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;

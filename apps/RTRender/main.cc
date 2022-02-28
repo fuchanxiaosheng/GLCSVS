@@ -20,14 +20,28 @@ int main()
 		{
 			spdlog::info("space key is pressed");
 		}*/
+		static int i = 0;
 		while (!window.mouse.IsEmpty())
 		{
 			const auto e = window.mouse.Read();
-			if (e.GetType() == RTMouse::Event::Type::Move)
+			switch (e.GetType())
 			{
+			case RTMouse::Event::Type::Leave:
+				spdlog::info("Gone");
+				break;
+			case RTMouse::Event::Type::Move:
 				spdlog::info("mouse position: ({}, {})", e.GetPosX(), e.GetPosY());
+				break;
+			case RTMouse::Event::Type::WheelUp:
+				i++;
+				spdlog::info("Up:{}", i);
+				break;
+			case RTMouse::Event::Type::WheelDown:
+				spdlog::info("Down:{}", i);
+				break;
 			}
 		}
+
 	}
 
 	if (gResult == -1)
